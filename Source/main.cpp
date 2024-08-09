@@ -4,32 +4,6 @@
 #include "settings.h"
 #include <iostream>
 
-std::string OnOff(bool x)
-{
-	if (x)
-		return "ON ";
-	else
-		return "OFF";
-}
-
-void PrintMenu()
-{
-	system("cls");
-
-	std::cout
-		<< "-------------------------------------------\n"
-		<< "              External Trainer              \n"
-		<< "-------------------------------------------\n"
-		<< "[NUM1] Ammo:\t\t\t--> " << OnOff(settings::infiniteAmmo) << " <--" << "\n"
-		<< "[NUM2] Health:\t\t\t--> " << OnOff(settings::infiniteHealth) << " <--" << "\n"
-		<< "[NUM3] Speed (-> Control + W):\t--> " << OnOff(settings::walkHack) << " <--" << "\n"
-		<< "[NUM4] Recoil:\t\t\t--> " << OnOff(settings::noRecoil) << " <--" << "\n"
-		<< "[NUM5] InstaFire:\t\t--> " << OnOff(settings::instaFire) << " <--" << "\n"
-		<< std::endl
-		<< "[END] Uninject / Exit\n"
-		<< "-------------------------------------------\n";
-}
-
 int main()
 {
 	HWND processWindow = FindWindowA(0, "AssaultCube");
@@ -88,41 +62,7 @@ int main()
 
 	while (!GetAsyncKeyState(VK_END))
 	{
-		if (GetAsyncKeyState(VK_NUMPAD1))
-		{
-			settings::infiniteAmmo = !settings::infiniteAmmo;
-
-			PrintMenu();
-			Sleep(70);
-		}
-		if (GetAsyncKeyState(VK_NUMPAD2))
-		{
-			settings::infiniteHealth = !settings::infiniteHealth;
-
-			PrintMenu();
-			Sleep(120);
-		}
-		if (GetAsyncKeyState(VK_NUMPAD3))
-		{
-			settings::walkHack = !settings::walkHack;
-
-			PrintMenu();
-			Sleep(120);
-		}
-		if (GetAsyncKeyState(VK_NUMPAD4))
-		{
-			settings::noRecoil = !settings::noRecoil;
-
-			PrintMenu();
-			Sleep(120);
-		}
-		if (GetAsyncKeyState(VK_NUMPAD5))
-		{
-			settings::instaFire = !settings::instaFire;
-
-			PrintMenu();
-			Sleep(120);
-		}
+		SettingsUpdate();
 
 		if (settings::noRecoil)
 		{
@@ -170,7 +110,6 @@ int main()
 	}
 
 	CloseHandle(processHandle);
-	system("cls");
-	std::cout << "Uninjected Successfully." << std::endl;
-	system("pause");
+	CloseRoutine();
+	return 0;
 }
