@@ -107,6 +107,7 @@ int main()
 				WriteProcessMemory(processHandle, (LPVOID*)speedPtrAddr, &walkHack, sizeof(int), 0);
 			}
 		}
+
 	}
 
 	CloseHandle(processHandle);
